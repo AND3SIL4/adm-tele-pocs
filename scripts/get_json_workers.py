@@ -13,6 +13,7 @@ Reads a table of workers from a config Excel file and prints their info in the d
 """
 
 import pandas as pd
+from aa_pytools.decorators.safe_execute import safe_execute
 from openpyxl import load_workbook
 
 
@@ -41,9 +42,10 @@ def get_table_using_range(params: dict[str, str]) -> pd.DataFrame:
     return pd.DataFrame(values, columns=headers)
 
 
+@safe_execute
 def get_json_workers(params: dict[str, str]) -> dict[str, dict[str, str]]:
     """
-    Retrieve worker table as a dictionary indexed by WorkerId, with host and formatted general IDs.
+    Retrieve worker table as a json indexed by WorkerId, with host and formatted general IDs.
 
     Args:
         params (dict): Parameters for the Excel read.
