@@ -42,8 +42,8 @@ def get_table_using_range(params: dict[str, str]) -> pd.DataFrame:
     return pd.DataFrame(values, columns=headers)
 
 
-@safe_execute
-def get_json_workers(params: dict[str, str]) -> dict[str, dict[str, str]]:
+@safe_execute(return_json=True, include_trace=True)
+def get_json_workers(params: dict[str, str]) -> str:
     """
     Retrieve worker table as a json indexed by WorkerId, with host and formatted general IDs.
 
@@ -54,7 +54,6 @@ def get_json_workers(params: dict[str, str]) -> dict[str, dict[str, str]]:
         dict: {WorkerId: {"HostId":..., "GeneralId":...}, ...}
     """
     data_frame = get_table_using_range(params=params)
-
     return {
         row["WorkerId"]: {
             "HostId": row["HostId"],
