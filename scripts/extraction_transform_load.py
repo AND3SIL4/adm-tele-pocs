@@ -35,6 +35,9 @@ class ETLInputFile:
         self.final_file = final_file
         self.sheet_name = sheet_name
 
+        # Make a brief validation before start
+        self._validate_input()
+
     def _validate_input(self) -> None:
         # Check if file exists and all required columns exist
         if not os.path.exists(self.file_path):
