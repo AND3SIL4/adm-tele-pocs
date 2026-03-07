@@ -69,7 +69,7 @@ class BalancerRowRun:
             name_file = f"{keyworker}-{dic_keyworker.get('HostId')}-{self.sheet_name}"
             final_path = f"{self.file_server}/{name_file}.xlsx"
             self._save_file(origin_df, final_path, self.sheet_name)
-            return {"total_balanced": total_workers}
+            return {keyworker: {"file": final_path, "records": len(origin_df)}}
 
         # More than one worker: split file
         chunks_splited = self._split_round_robin(origin_df, total_workers)

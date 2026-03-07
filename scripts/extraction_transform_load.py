@@ -125,7 +125,7 @@ def etl_file(incomes: dict[str, str]) -> str:
 if __name__ == "__main__":
     # Example usage demonstration
     params = {
-        "file_path": r"C:\dev-projects\adm-tele-poc\public\admisiones-teleorientaciton-con-cita.xlsx",
+        "file_path": r"C:\dev-projects\adm-tele-poc\public\admisiones-teleorientacion-con-cita.xlsx",
         "date_to_filter": "02/03/2026",
         "keyword": "teleorientacion",
         "sheet_name": "pacientes-con-cita",
