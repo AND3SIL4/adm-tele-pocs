@@ -21,7 +21,7 @@ class UpdateFinalFile:
             # Raise error if sheet name missing for Excel files
             raise ValueError("sheet_name is required for Excel files")
         # Read Excel file using specified sheet and openpyxl engine
-        return pd.read_excel(io=file_path, sheet_name=sheet_name, engine="openpyxl")
+        return pd.read_excel(file_path, sheet_name, engine="openpyxl")
 
     # Save merged DataFrames to the target Excel file
     def _save_file(self, dataframes: list[pd.DataFrame]) -> None:
@@ -33,8 +33,10 @@ class UpdateFinalFile:
     def update_final_file(self) -> None:
         # Read temporary data from CSV
         temp_df = self._read_file(self.temp_file)
+        print(temp_df)
         # Read existing data from final Excel file
         existing_df = self._read_file(self.file_path, sheet_name=self.sheet_name)
+        print(existing_df)
         # Combine both and save result to Excel
         self._save_file([existing_df, temp_df])
 
