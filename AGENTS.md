@@ -13,9 +13,10 @@ Python project (>=3.13) for processing Excel files related to medical teleorient
 .venv\Scripts\activate
 
 # Run scripts
-python scripts/etl_input_file.py
+python scripts/extraction_transform_load.py
 python scripts/get_json_workers.py
-python scripts/balancer_run_row.py
+python scripts/balancer_round_robin.py
+python scripts/update_final_file.py
 ```
 
 ### Linting
@@ -40,10 +41,13 @@ No tests currently exist. To add tests:
 pytest
 
 # Run a single test file
-pytest tests/test_etl_input_file.py
+pytest tests/test_file_name.py
 
 # Run a single test function
-pytest tests/test_etl_input_file.py::test_function_name
+pytest tests/test_file_name.py::test_function_name
+
+# Run tests matching a pattern
+pytest -k "test_pattern"
 ```
 
 ## Code Style Guidelines
@@ -126,7 +130,7 @@ class ETLInputFile:
 ### File Organization
 
 - Scripts go in `scripts/` directory
-- Descriptive names: `etl_input_file.py`, `get_json_workers.py`, `balancer_run_row.py`
+- Descriptive names: `extraction_transform_load.py`, `get_json_workers.py`, `balancer_round_robin.py`, `update_final_file.py`
 - One class or main purpose per file
 
 ### Excel Operations
