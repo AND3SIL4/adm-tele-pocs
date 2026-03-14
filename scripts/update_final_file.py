@@ -41,7 +41,7 @@ class UpdateFinalFile:
         self._save_file([existing_df, temp_df])
 
 
-@safe_execute
+@safe_execute(return_json=True, include_trace=True)
 def update_final_file(params: dict[str, str]) -> str:
     # Entrypoint for Automation Anywhere – expects params dict:
     # {
@@ -58,6 +58,6 @@ if __name__ == "__main__":
     arguments = {
         "file_path": r"C:\dev-projects\adm-tele-poc\outputs\test-test.xlsx",
         "sheet_name": "pacientes-con-cita",
-        "temp_file": r"C:\dev-projects\adm-tele-poc\outputs\temp.csv",
+        "temp_file": r"C:\dev-projects\adm-tele-poc\outputs\temp.cs",
     }
     print(update_final_file(params=arguments))

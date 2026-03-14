@@ -71,13 +71,17 @@ class ETLInputFile:
     def _filter_by_date(self, data_frame: pd.DataFrame) -> pd.DataFrame:
         # Filter rows by appointment date
         data_frame = data_frame.copy()
+        data_frame = data_frame.copy()
+        # Convert "Fecha de la Cita" to datetime, using dayfirst=True for DD/MM/YYYY format
         data_frame["Fecha de la Cita"] = pd.to_datetime(
-            data_frame["Fecha de la Cita"], dayfirst=True
+            data_frame["Fecha de la Cita"], errors="coerce", dayfirst=True
         )
-        return data_frame[
-            data_frame["Fecha de la Cita"].dt.date
-            == pd.to_datetime(self.date_filter).date()
-        ]
+        # Parse the filter date (self.date_filter) as datetime.date, with dayfirst=True
+        target_date = pd.to_datetime(
+            self.date_filter, errors="coerce", dayfirst=True
+        ).date()
+        # Filter rows where the date matches target_date
+        return data_frame[data_frame["Fecha de la Cita"].dt.date == target_date]
 
     def _filter_file(self, data_frame: pd.DataFrame) -> pd.DataFrame:
         # Apply all filters in sequence
@@ -126,7 +130,7 @@ if __name__ == "__main__":
     # Example usage demonstration
     params = {
         "file_path": r"C:\dev-projects\adm-tele-poc\public\admisiones-teleorientacion-con-cita.xlsx",
-        "date_to_filter": "02/03/2026",
+        "date_to_filter": "12/03/2026",
         "keyword": "teleorientacion",
         "sheet_name": "pacientes-con-cita",
         "final_file": r"test.xlsx",
