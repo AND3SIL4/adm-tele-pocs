@@ -39,7 +39,7 @@ class BalancerRowRun:
         self, data_frame: pd.DataFrame, final_file: str, sheet_name: str
     ) -> None:
         # Save the DataFrame to Excel
-        data_frame.to_excel(excel_writer=final_file, sheet_name=sheet_name)
+        data_frame.to_excel(final_file, sheet_name=sheet_name, index=False)
 
     def _split_round_robin(
         self, data_frame: pd.DataFrame, workers: int
