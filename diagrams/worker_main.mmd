@@ -1,0 +1,32 @@
+graph TD
+    subgraph Main_FASE1_TELEORIENTACION [Main General: Worker]
+        MainWorker[HU03: RealizarAdmisiones] --> GetJob[01: Obtener Gestión Worker]
+        GetJob --> SO02[SO02: Ingreso y Navegación Sophia por Sede]
+        
+        SO02 --> SO03[SO03: Orquestar Registros Creación Adm]
+        
+        SO03 --> Search{¿Paciente Activo?}
+        Search -- No --> Skip[Marcar Novedad BackOffice]
+        Search -- Sí --> FlowType{¿Tiene Cita Bukeala?}
+        
+        FlowType -- Sí --> SO01_Cita[SO01: Consumir Cita Sostenibilidad]
+        FlowType -- No --> SO01_Manual[SO01: Ingreso Médico Tratante Manual]
+        
+        SO01_Cita & SO01_Manual --> Fields[Diligenciar Régimen + Edad + Parentesco]
+        Fields --> Recaudo[Módulo Recaudo: Exonerado CM]
+        Recaudo --> Save[Guardar y Capturar # Admisión]
+        
+        Save --> Concurrency{RF08: ¿Tiene más citas hoy?}
+        Concurrency -- Sí --> SO04[SO04: Egresar Admisión Mantenimiento]
+        SO04 --> LoopNext[Siguiente Registro]
+        
+        Concurrency -- No --> LoopNext
+        
+        LoopNext --> EndLoop{¿Fin de registros?}
+        EndLoop -- No --> SO02
+        EndLoop -- Sí --> Finalize[02: Actualizar Archivos Finales]
+    end
+
+    Finalize --> Publish[HU14: Publicar Salidas MFT]
+    Publish --> Notify[HU15: Notificación Formal de Cierre]
+    Notify --> Finish((Fin))

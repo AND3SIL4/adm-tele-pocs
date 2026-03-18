@@ -1,0 +1,6 @@
+graph LR
+    Start((HU01)) --> Connect[MFT00: Conexión SFTP]
+    Connect --> Download[Descarga archivos 'con' y 'sin']
+    Download --> Struct{¿Columnas Correctas?}
+    Struct -- No --> Notify[Reportar Error Estructura a Negocio]
+    Struct -- Sí --> Lock[Renombrar a _LOCK y Guardar Local]

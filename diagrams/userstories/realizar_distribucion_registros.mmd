@@ -1,0 +1,5 @@
+graph LR
+    Start((HU02)) --> Filter[Filtrar: Teleorientación + Pendiente + Hoy]
+    Filter --> Sort[Ordenar por Hora de Cita ASC]
+    Sort --> Concurrency[Identificar Múltiples Citas/Paciente]
+    Concurrency --> Queue[Cargar Cola de Trabajo para Workers]

@@ -1,0 +1,17 @@
+graph LR
+    Start((HU03)) --> Login[SO02: Login Sophia por Sede]
+    Login --> Search[Búsqueda en SS Admisiones]
+    Search --> Type{¿Insumo 'con'?}
+    
+    Type -- Sí --> Consume[Aceptar Cita Bukeala en Sostenibilidad]
+    Type -- No --> Manual[Diligenciar Médico Tratante Manual]
+    
+    Consume & Manual --> Logic[HU-BOT-07: Régimen/Edad/Parentesco/Recaudo]
+    Logic --> Save[Guardar y Capturar # Admisión]
+    
+    Save --> Multi{¿Tiene más citas hoy?}
+    Multi -- Sí --> Egress[SO04: Egreso Inmediato Mantenimiento]
+    Multi -- No --> Next[Siguiente Registro]
+    
+    Egress --> Next
+    Next --> End((Fin de Gestión))

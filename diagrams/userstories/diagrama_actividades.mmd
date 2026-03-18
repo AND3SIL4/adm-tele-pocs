@@ -1,0 +1,25 @@
+graph LR
+    Start((Inicio)) --> MainF1[Main_FASE1_TELEORIENTACION]
+    MainF1 --> HU00[HU00: Despliegue Ambiente]
+    HU00 --> HU01[HU01: Obtener Insumos MFT]
+    HU01 --> MFTConn[MFT00: Connection]
+    MFTConn --> MFT01[MFT01: Get Sin Cita]
+    MFTConn --> MFT02[MFT02: Get Bukeala]
+    
+    HU01 --> HU02[HU02: Distribución y Balanceo]
+    HU02 --> MainBal[Main_BALANCEADOR]
+    
+    MainBal --> HU03[HU03: Realizar Admisiones - Worker]
+    HU03 --> SO02[SO02: Login Sophia Sede]
+    SO02 --> SO03[SO03: Orquestar Logic]
+    
+    SO03 -- Con Cita --> SO01[SO01: Crear Admisión]
+    SO03 -- Sin Cita --> SO01
+    
+    SO01 --> Concurr{¿Múltiples Citas?}
+    Concurr -- Sí --> SO04[SO04: Egresar Admisión]
+    SO04 --> SO03
+    Concurr -- No --> HU03
+    
+    HU03 --> Func02[02: Actualizar Archivos Finales]
+    Func02 --> End((Fin))

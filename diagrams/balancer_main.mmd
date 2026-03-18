@@ -1,0 +1,19 @@
+graph LR
+    %% --- ORQUESTADOR / BALANCEADOR ---
+    subgraph Main_BALANCEADOR [Main: Orquestador / Balanceador]
+        Start((Inicio 01:00 AM)) --> HU00[HU00: DespliegueAmbiente]
+        HU00 --> Init[Lectura Config / Tablas de Referencia]
+        Init --> HU01[HU01: ObtenerArchivosInsumos]
+        
+        HU01 --> MFTConn[MFT00: Conexión SFTP]
+        MFTConn --> Download[MFT01 & MFT02: Descarga archivos 'con' y 'sin']
+        Download --> StructCheck{RF07: ¿Estructura OK?}
+        
+        StructCheck -- No --> ErrorEmail[Notificar Error Estructura]
+        StructCheck -- Sí --> HU02[HU02: RealizarDistribuciónRegistros]
+        
+        HU02 --> Filter[Filtro: Teleorientación + Pendiente + Hoy]
+        Filter --> Sort[RF08: Ordenar por Hora ASC + Sede]
+        Sort --> MultiAppt[Identificar Citas Múltiples por Paciente]
+        MultiAppt --> Queue[Cargar Cola de Trabajo / WorkItems]
+    end

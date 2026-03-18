@@ -1,0 +1,60 @@
+classDiagram
+    class Main_BALANCEADOR {
+        +execute()
+        -HU00_DespliegueAmbiente()
+        -HU01_ObtenerArchivosInsumos()
+        -HU02_RealizarDistribucionRegistros()
+    }
+
+    class Main_FASE1_TELEORIENTACION {
+        +execute()
+        -01_ObtenerGestionWorker()
+        -HU03_RealizarAdmisiones()
+        -02_ActualizarArchivosFinales()
+    }
+
+    class HU03_RealizarAdmisiones {
+        +procesarRegistro(Paciente)
+        -SO02_IngresoYNavegacion()
+        -SO03_OrquestarRegistrosCreacionAdm()
+        -SO04_EgresarAdmision()
+    }
+
+    class MFT_Manager {
+        <<Service>>
+        +MFT00_GetConnection()
+        +MFT01_ObtenerInsumoSinCita()
+        +MFT02_ObtenerInsumoCanales()
+    }
+
+    class Sophia_Manager {
+        <<Service>>
+        +SO01_CrearAdmisionPorPaciente()
+        +SO02_Login(Sede)
+        +SO04_EgresarAdmision(NumAdmision)
+    }
+
+    class Insumo {
+        <<Data>>
+        +String sede
+        +DateTime horaCita
+        +String numDocumento
+        +String regimen
+        +Int edad
+    }
+
+    class Config_Parametros {
+        <<Data>>
+        +String rutaMFT
+        +String credencialesVault
+        +Dictionary tablasReferencia
+    }
+
+    Main_BALANCEADOR ..> MFT_Manager : usa para descargar
+    Main_BALANCEADOR ..> Config_Parametros : carga
+    Main_BALANCEADOR --> Insumo : filtra y ordena
+    
+    Main_FASE1_TELEORIENTACION --> HU03_RealizarAdmisiones : delega ejecución
+    HU03_RealizarAdmisiones ..> Sophia_Manager : interactúa UI
+    HU03_RealizarAdmisiones ..> Insumo : procesa datos
+    Main_FASE1_TELEORIENTACION ..> MFT_Manager : usa para subir resultados

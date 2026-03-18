@@ -1,0 +1,6 @@
+graph LR
+    Start((Inicio)) --> ReadConfig[Lectura Config y Vault]
+    ReadConfig --> LoadRefs[Carga Tabla Referencia Única]
+    LoadRefs --> NetCheck{¿Conexión MFT/Sophia OK?}
+    NetCheck -- No --> CriticalLog[Error Crítico: Notificar y Finalizar]
+    NetCheck -- Sí --> End((Ambiente Listo))
