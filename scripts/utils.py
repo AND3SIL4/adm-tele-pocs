@@ -1,5 +1,6 @@
 import unicodedata
 from datetime import datetime
+
 import holidays
 
 
@@ -31,4 +32,6 @@ def is_business_day(date_str: str) -> bool:
 
 
 if __name__ == "__main__":
-    print(is_business_day("21/03/2026"))
+    # print(is_business_day("21/03/2026"))
+    string = "Programa Salud Mental - Medicina General - Teleorientación"
+    print(strip_acents(string))
