@@ -1,0 +1,11 @@
+flowchart TD
+
+    A[Workers paralelos] --> B[Procesan datos]
+    B --> C{¿Lock disponible?}
+
+    C -->|Sí| D[Agregan resultados al reporte]
+    C -->|No| E[Esperar / Retry]
+    E --> C
+
+    D --> F[Liberan lock]
+    F --> G[Fin]

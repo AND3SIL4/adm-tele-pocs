@@ -1,0 +1,27 @@
+flowchart LR
+
+A[Inicio ejecución] --> B{Tabla dates vacía?}
+
+B -- No --> C[Tomar primera fecha existente]
+B -- Sí --> D[Generar nueva fecha]
+D --> E[Insertar fecha en dates]
+
+C --> F[Iterar registros]
+E --> F
+
+F --> G{Registro ya existe en records?}
+
+G -- Sí --> H[Skip registro]
+G -- No --> I[Procesar registro]
+I --> J[Insertar en records]
+
+H --> K{Quedan registros?}
+J --> K
+
+K -- Sí --> F
+K -- No --> L[Fin procesamiento]
+
+L --> M[Eliminar registros asociados]
+M --> N[Eliminar fecha de dates]
+
+N --> O[Fin ejecución]
