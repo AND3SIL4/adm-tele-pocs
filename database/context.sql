@@ -8,9 +8,9 @@ CREATE TABLE IF NOT EXISTS dates(
 CREATE TABLE IF NOT EXISTS records(
 	id_record TEXT PRIMARY KEY,
 	exe_date TEXT NOT NULL,
-	state INTEGER NOT NULL DEFAULT 0,
+	state INTEGER NOT NULL DEFAULT 0, -- 0=Non successfully 1=success
 	-- Build contraints 
-	CONSTRAINT chk_state CHECK(state IN (0,1,2))
+	CONSTRAINT chk_state CHECK(state IN (0,1))
 	FOREIGN KEY (exe_date) 
 		REFERENCES dates(exe_date)
 		ON DELETE CASCADE
