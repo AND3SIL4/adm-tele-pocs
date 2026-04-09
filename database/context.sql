@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS dates(
 CREATE TABLE IF NOT EXISTS records(
 	id_record TEXT PRIMARY KEY,
 	exe_date TEXT NOT NULL,
+	details TEXT NOT NULL,
 	state INTEGER NOT NULL DEFAULT 0, -- 0=Non successfully 1=success
 	-- Build contraints 
 	CONSTRAINT chk_state CHECK(state IN (0,1))
