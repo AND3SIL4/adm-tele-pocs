@@ -82,9 +82,7 @@ class BalancerRowRun:
             chunk = chunks_splited[idx] if idx < len(chunks_splited) else None
             if chunk is not None and not chunk.empty:
                 # Compose filename for this worker
-                name_file = (
-                    f"{worker_key}-{worker_info.get('HostId')}-{self.sheet_name}"
-                )
+                name_file = (f"{worker_key}-{self.sheet_name}")
                 final_path = f"{self.file_server}/{name_file}.xlsx"
                 # Write worker's assigned rows to file
                 self._save_file(chunk, final_path, self.sheet_name)

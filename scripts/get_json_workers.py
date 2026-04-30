@@ -55,7 +55,7 @@ def get_json_workers(params: dict[str, str]) -> str:
     """
     data_frame = get_table_using_range(params=params)
     return {
-        row["WorkerId"]: {
+        f"{row["WorkerId"]}-{row["HostId"]}": {
             "HostId": row["HostId"],
             "GeneralId": f"{int(row['GeneralId']):03d}",
         }
